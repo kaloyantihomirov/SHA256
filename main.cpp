@@ -4,39 +4,40 @@
 
 using namespace std;
 
-string readTextFromFile(ifstream & fStream, const string & fileName)
+string readTextFromFile(const string & fileName)
 {
-    fStream.open(fileName);
+    ifstream fStream(fileName);
 
     string result;
     string line;
 
     if (fStream.is_open())
     {
-        while (fStream.good()) {
-            getline(fStream, line);
-
+        while (getline(fStream, line))
+        {
             if (fStream.eof())
             {
                 result += line;
             }
             else
             {
-                result += line + "\n";
+                result += line + '\n';
             }
         }
     }
-
-    fStream.close();
+    else
+    {
+        cout << "Error opening file: " << fileName << endl;
+    }
 
     return result;
 }
 
 int main()
 {
-    ifstream  ifstream1;
-    string shoppingList = readTextFromFile(ifstream1, "shoppingList.txt");
+    string shoppingList = readTextFromFile("shoppingList.txt");
 
     cout << shoppingList << endl;
-}
 
+    return 0;
+}
