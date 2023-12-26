@@ -46,12 +46,16 @@ void writeTextToFile(const string& text, const string& fileName)
 
 int main()
 {
-    string shoppingList = readTextFromFile("shoppingList.txt");
+    string textToWrite = "this message is going to be hashed using SHA256";
 
-    cout << shoppingList << endl;
+    string fileName = "originalMessage.txt";
+    writeTextToFile(textToWrite, fileName);
 
-    writeTextToFile("Writing from main()", "example.txt");
+    string textToHash = readTextFromFile(fileName);
 
+    cout << textToHash << endl;
+
+    cout << (textToHash == textToWrite) << endl;
 
     return 0;
 }
