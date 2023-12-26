@@ -33,11 +33,25 @@ string readTextFromFile(const string & fileName)
     return result;
 }
 
+void writeTextToFile(const string& text, const string& fileName)
+{
+    ofstream ofstream1;
+
+    ofstream1.open(fileName);
+
+    ofstream1 << text;
+
+    ofstream1.close();
+}
+
 int main()
 {
     string shoppingList = readTextFromFile("shoppingList.txt");
 
     cout << shoppingList << endl;
+
+    writeTextToFile("Writing from main()", "example.txt");
+
 
     return 0;
 }
