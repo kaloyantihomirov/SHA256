@@ -77,9 +77,46 @@ vector<unsigned long> convert_to_binary(const string input)
     for (int i = 0; i < input.size(); i++)
     {
         bitset<8> b(input.c_str()[i]);
-//        cout << b << endl;
-//        cout << b.to_ulong() << endl;
+
         block.push_back(b.to_ulong());
+    }
+
+    return block;
+}
+
+vector<unsigned long> pad_to_512bits(vector<unsigned long> block)
+{
+    int l = block.size() * 8;
+
+    // Equation for padding is l + 1 + k = 448 mod 512
+    // Simplified to: l + 1 + k = 448
+    //		  448 - 1 - l = k
+    //		  447 - l = k
+    // l = length of message in bits
+    // k = how much zero's to add, for the new message to be a multiple of 512.
+    int k = 447 - l;
+
+    //note that 0x80 is 128 in decimal which is 10000000 (1 with 7 zeros) in binary
+    unsigned long t1 = 0x80;
+    block.push_back(t1);
+
+    k = k - 7;
+
+    for (int i = 0; i < k / 8; i++)
+        block.push_back(0x00000000);
+
+    bitset<64> strLenInBits(l);
+    cout << strLenInBits << endl;
+
+    string strLenInBitsAsString = strLenInBits.to_string();
+
+    bitset<8> firstEightBits(strLenInBitsAsString.substr(0, 8));
+    block.push_back(firstEightBits.to_ulong());
+
+    for (int i = 8; i < 63; i = i + 8)
+    {
+        bitset<8> currEightBits(strLenInBitsAsString.substr(i, 8));
+        block.push_back(currEightBits.to_ulong());
     }
 
     return block;
@@ -87,13 +124,22 @@ vector<unsigned long> convert_to_binary(const string input)
 
 int main()
 {
-    vector<unsigned long> binary = convert_to_binary("abc");
+    string str = "abc";
+
+    vector<unsigned long> binary = convert_to_binary(str);
 
     for (int i = 0; i < binary.size(); i++)
     {
-        cout << binary[i] << '\t';
+        cout << binary[i];
+    }
+    cout << endl;
+
+    vector<unsigned long> padded = pad_to_512bits(binary);
+
+    for (int i = 0; i < padded.size(); i++)
+    {
+        cout << padded[i];
     }
 
     return 0;
 }
-
