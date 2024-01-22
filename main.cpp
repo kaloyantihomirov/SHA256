@@ -49,10 +49,10 @@ void writeTextToFile(const string& text, const string& fileName)
 }
 
 // Converts the ASCII string to its binary representation.
-vector<unsigned long> convert_to_binary(const string);
+vector<unsigned long> convertToBinary(const string);
 
-// Pads the messages to make sure they are a multiple of 512 bits.
-vector<unsigned long> pad_to_512bits(const vector<unsigned long>);
+// Pads the message to make sure the length is a multiple of 512.
+vector<unsigned long> padToMultipleOf512Bits(const vector<unsigned long>);
 
 // Changes the n 8-bit segments, representing every ASCII character to 32-bit words.
 vector<unsigned long> resize_block(vector<unsigned long>);
@@ -70,7 +70,7 @@ string compute_hash(const vector<unsigned long>);
 #define EP0(x) (ROTRIGHT(x,2) ^ ROTRIGHT(x,13) ^ ROTRIGHT(x,22))
 #define EP1(x) (ROTRIGHT(x,6) ^ ROTRIGHT(x,11) ^ ROTRIGHT(x,25))
 
-vector<unsigned long> convert_to_binary(const string input)
+vector<unsigned long> convertToBinary(const string input)
 {
     vector<unsigned long> block;
 
@@ -84,7 +84,7 @@ vector<unsigned long> convert_to_binary(const string input)
     return block;
 }
 
-vector<unsigned long> pad_to_512bits(vector<unsigned long> block)
+vector<unsigned long> padToMultipleOf512Bits(vector<unsigned long> block)
 {
     int l = block.size() * 8;
 
@@ -106,7 +106,6 @@ vector<unsigned long> pad_to_512bits(vector<unsigned long> block)
         block.push_back(0x00000000);
 
     bitset<64> strLenInBits(l);
-    cout << strLenInBits << endl;
 
     string strLenInBitsAsString = strLenInBits.to_string();
 
@@ -126,7 +125,7 @@ int main()
 {
     string str = "abc";
 
-    vector<unsigned long> binary = convert_to_binary(str);
+    vector<unsigned long> binary = convertToBinary(str);
 
     for (int i = 0; i < binary.size(); i++)
     {
@@ -134,7 +133,7 @@ int main()
     }
     cout << endl;
 
-    vector<unsigned long> padded = pad_to_512bits(binary);
+    vector<unsigned long> padded = padToMultipleOf512Bits(binary);
 
     for (int i = 0; i < padded.size(); i++)
     {
