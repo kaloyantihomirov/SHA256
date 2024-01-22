@@ -235,23 +235,8 @@ string computeHash(const vector<unsigned long> block)
            showAsHex(H6) + showAsHex(H7);
 }
 
-int main2()
+string utilize(string message)
 {
-    string message = "";
-    cout << "Please enter a message to be hashed: ";
-    cin >> message;
-
-    if (message.empty())
-    {
-        message = "abc";
-        cout << "No input string was found, so the default string \"abc\" will be used.";
-    }
-    else if (message.size() > 55)
-    {
-        cout << "Your string is over 55 characters long, please use a shorter message!" << endl;
-        return 1;
-    }
-
     vector<unsigned long> block;
 
     block = convertToBinary(message);
@@ -262,55 +247,72 @@ int main2()
 
     string hash = computeHash(block);
 
-    writeTextToFile(hash, "hashed.txt");
-
-    cout << hash << endl;
-
-    return 0;
+    return hash;
 }
 
-int main3()
-{
-    cout << "Reading message from a file to hash..." << endl;
-    string message = readTextFromFile("messageToHash.txt");
+//int main2()
+//{
+//    string message = "";
+//    cout << "Please enter a message to be hashed: ";
+//    cin >> message;
+//
+//    if (message.empty())
+//    {
+//        message = "abc";
+//        cout << "No input string was found, so the default string \"abc\" will be used.";
+//    }
+//    else if (message.size() > 55)
+//    {
+//        cout << "Your string is over 55 characters long, please use a shorter message!" << endl;
+//        return 1;
+//    }
+//
+//    string hash = utilize(message);
+//
+//    writeTextToFile(hash, "hashed.txt");
+//
+//    cout << hash << endl;
+//
+//    return 0;
+//}
 
-    vector<unsigned long> block;
-
-    block = convertToBinary(message);
-
-    block = padToMultipleOf512Bits(block);
-
-    block = resizeBlock(block);
-
-    string hash = computeHash(block);
-
-    writeTextToFile(hash, "hashed.txt");
-
-    cout << hash << endl;
-
-    return 0;
-}
+//int main3()
+//{
+//    cout << "Reading message from a file to hash..." << endl;
+//    string message = readTextFromFile("messageToHash.txt");
+//
+//    vector<unsigned long> block;
+//
+//    block = convertToBinary(message);
+//
+//    block = padToMultipleOf512Bits(block);
+//
+//    block = resizeBlock(block);
+//
+//    string hash = computeHash(block);
+//
+//    writeTextToFile(hash, "hashed.txt");
+//
+//    cout << hash << endl;
+//
+//    return 0;
+//}
 
 int main()
 {
+    string fileName = "hashed-FMI.txt";
     cout << "Reading hashed message from a file..." << endl;
-    string readHash = readTextFromFile("hashed-FMI.txt");
+    string readHash = readTextFromFile(fileName);
 
     cout << "Enter message to compare its hash with the hash from the file: ";
     string messageToHash;
     cin >> messageToHash;
 
-    vector<unsigned long> block;
+    string hashedMessage = utilize(messageToHash);
+    writeTextToFile(hashedMessage, "hashed.txt");
+    cout << "The hashed message is saved!" << endl;
 
-    block = convertToBinary(messageToHash);
-
-    block = padToMultipleOf512Bits(block);
-
-    block = resizeBlock(block);
-
-    string hash = computeHash(block);
-
-    if (readHash == hash)
+    if (readHash == hashedMessage)
     {
         cout << "The hash of the given text is the same as the read hash." << endl;
     }
