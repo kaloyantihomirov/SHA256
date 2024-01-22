@@ -18,9 +18,9 @@ This console application is designed to implement text hashing using the SHA-256
 
 Learn more about the SHA-256 algorithm:
 
-- [What is SHA-256](https://en.wikipedia.org/wiki/SHA-2)
-- [How SHA-2 Works Step-by-Step: SHA-256](https://blog.boot.dev/cryptography/how-sha-2-works-step-by-step-sha-256/)
-- [Visualization of SHA-256 Algorithm](https://sha256algorithm.com/)
+- [What is SHA-256](https://en.wikipedia.org/wiki/SHA-2){:target="_blank"}
+- [How SHA-2 Works Step-by-Step: SHA-256](https://blog.boot.dev/cryptography/how-sha-2-works-step-by-step-sha-256/){:target="_blank"}
+- [Visualization of SHA-256 Algorithm](https://sha256algorithm.com/){:target="_blank"}
 
 Feel free to explore additional sources for a deeper understanding of the SHA-256 algorithm.
 
