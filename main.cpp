@@ -235,7 +235,7 @@ string computeHash(const vector<unsigned long> block)
            showAsHex(H6) + showAsHex(H7);
 }
 
-int main(int argc, char* argv[])
+int main2()
 {
     string message = "";
     cout << "Please enter a message to be hashed: ";
@@ -265,6 +265,57 @@ int main(int argc, char* argv[])
     writeTextToFile(hash, "hashed.txt");
 
     cout << hash << endl;
+
+    return 0;
+}
+
+int main3()
+{
+    cout << "Reading message from a file to hash..." << endl;
+    string message = readTextFromFile("messageToHash.txt");
+
+    vector<unsigned long> block;
+
+    block = convertToBinary(message);
+
+    block = padToMultipleOf512Bits(block);
+
+    block = resizeBlock(block);
+
+    string hash = computeHash(block);
+
+    writeTextToFile(hash, "hashed.txt");
+
+    cout << hash << endl;
+
+    return 0;
+}
+
+int main()
+{
+    cout << "Reading hashed message from a file..." << endl;
+    string readHash = readTextFromFile("hashed-FMI.txt");
+
+    cout << "Enter message to compare its hash with the hash from the file: ";
+    string messageToHash;
+    cin >> messageToHash;
+
+    vector<unsigned long> block;
+
+    block = convertToBinary(messageToHash);
+
+    block = padToMultipleOf512Bits(block);
+
+    block = resizeBlock(block);
+
+    string hash = computeHash(block);
+
+    if (readHash == hash)
+    {
+        cout << "The hash of the given text is the same as the read hash." << endl;
+    }
+    else
+        cout << "Sorry, but the hashes are not the same!" << endl;
 
     return 0;
 }
