@@ -1,3 +1,19 @@
+/**
+*
+* Solution to course project # 6
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2023/2024
+*
+* @author Kaloyan Kolev
+* @idnumber 5MI0600345
+* @compiler GCC
+*
+* <main cpp file of the program>
+*
+*/
+
+
 #include <iostream>
 #include <fstream>
 #include <string>
