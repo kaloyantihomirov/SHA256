@@ -1,8 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <iomanip>
-#include <cstdint>
 #include <vector>
 #include <bitset>
 
@@ -55,7 +53,7 @@ vector<unsigned long> convertToBinary(const string);
 vector<unsigned long> padToMultipleOf512Bits(const vector<unsigned long>);
 
 // Changes the n 8-bit segments, representing every ASCII character to 32-bit words.
-vector<unsigned long> resize_block(vector<unsigned long>);
+vector<unsigned long> resizeBlock(vector<unsigned long>);
 
 // The actual hash computing.
 string compute_hash(const vector<unsigned long>);
@@ -121,24 +119,3 @@ vector<unsigned long> padToMultipleOf512Bits(vector<unsigned long> block)
     return block;
 }
 
-int main()
-{
-    string str = "abc";
-
-    vector<unsigned long> binary = convertToBinary(str);
-
-    for (int i = 0; i < binary.size(); i++)
-    {
-        cout << binary[i];
-    }
-    cout << endl;
-
-    vector<unsigned long> padded = padToMultipleOf512Bits(binary);
-
-    for (int i = 0; i < padded.size(); i++)
-    {
-        cout << padded[i];
-    }
-
-    return 0;
-}
